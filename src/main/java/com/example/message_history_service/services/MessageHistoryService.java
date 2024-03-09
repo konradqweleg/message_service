@@ -29,6 +29,8 @@ public class MessageHistoryService implements MessageHistoryPort {
                 .flatMap(message -> userManagementPort.getUserAboutId(Mono.just(new IdUserData(message.idFriend())))
                         .map(user -> new LastMessageWithUser(
                                 message.idFriend(),
+                                message.idSender(),
+                                message.idReceiver(),
                                 message.idMessage(),
                                 user.getValue().name(),
                                 user.getValue().surname(),

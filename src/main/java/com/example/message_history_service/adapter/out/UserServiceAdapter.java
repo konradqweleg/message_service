@@ -37,7 +37,6 @@ public class UserServiceAdapter implements UserManagementPort {
                         .toEntity(String.class)
                         .flatMap(responseEntity -> {
                             try {
-                                System.out.println(responseEntity.getBody());
                                 UserData userData =  objectMapper.readValue(responseEntity.getBody(), UserData.class);
                                 return Mono.just(Result.success(userData));
                             } catch (JsonProcessingException e) {
