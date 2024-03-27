@@ -19,17 +19,16 @@ import java.util.List;
 @RequestMapping(value = "/messageHistory/api/v1/history")
 public class MessageHistoryAdapter {
 
-        private final MessageHistoryPort messageHistoryPort;
+    private final MessageHistoryPort messageHistoryPort;
 
-        public MessageHistoryAdapter(MessageHistoryPort messageHistoryPort) {
-            this.messageHistoryPort = messageHistoryPort;
-        }
+    public MessageHistoryAdapter(MessageHistoryPort messageHistoryPort) {
+        this.messageHistoryPort = messageHistoryPort;
+    }
 
 
     @GetMapping("/getLastMessagesWithFriendForUser")
-    public
-    Flux<LastMessageWithUser> getLastMessagesWithFriendForUser(@RequestParam Long idUser) {
-        return messageHistoryPort.getLastMessagesWithFriends(Mono.just(new IdUserData(idUser)));
+    public Mono<ResponseEntity<String>> getLastMessagesWithFriendForUser(@RequestParam Long idUser) {
+        return ConvertToJSON.convert(messageHistoryPort.getLastMessagesWithFriends(Mono.just(new IdUserData(idUser))));
     }
 
 
